@@ -89,8 +89,9 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
 	 */
 	public T getDataRoot() throws EmptyCollectionException {
 
-		// left as programming project
-		return null;
+		if (root == null)
+        	throw new EmptyCollectionException("binary tree");
+    	return root.getData();
 
 	}
 
@@ -102,7 +103,7 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
 	public boolean isEmpty() {
 
 		// left as programming project
-		return true;
+		return (root == null);
 
 	}
 
@@ -114,7 +115,9 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
 	public int size(BinaryTreeNode<T> r) {
 
 		// left as programming project
-		return -1;
+		if (r == null)
+        	return 0;
+    	return 1 + size(r.getLeft()) + size(r.getRight());
 
 	}
 
@@ -130,9 +133,12 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
 	public boolean contains(BinaryTreeNode<T> r, T targetElement) {
 
 		// left as programming project
-		return true;
-
-	}
+		if (r == null)
+        	return false;
+    	if (r.getData().equals(targetElement))
+        	return true;
+    	return contains(r.getLeft(), targetElement) || contains(r.getRight(), targetElement);
+}
 
 	/**
 	 * Performs an inorder traversal on this binary tree by calling an overloaded,
@@ -143,7 +149,9 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
 	public Iterator<T> iteratorInOrder() {
 
 		// left as programming project
-		return null;
+		ArrayList<T> tempList = new ArrayList<T>();
+    	inorder(root, tempList);
+    	return tempList.iterator();
 
 	}
 
@@ -156,7 +164,11 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
 	private void inorder(BinaryTreeNode<T> node, ArrayList<T> tempList) {
 
 		// left as programming project
-
+		if (node != null) {
+        	inorder(node.getLeft(), tempList);
+        	tempList.add(node.getData());
+        	inorder(node.getRight(), tempList);
+    	}
 	}
 
 	/**
@@ -168,7 +180,9 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
 	public Iterator<T> iteratorPreOrder() {
 
 		// left as programming project
-		return null;
+		ArrayList<T> tempList = new ArrayList<T>();
+    	preorder(root, tempList);
+    	return tempList.iterator();
 
 	}
 
@@ -181,7 +195,11 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
 	private void preorder(BinaryTreeNode<T> node, ArrayList<T> tempList) {
 
 		// left as programming project
-
+		if (node != null) {
+        tempList.add(node.getData());
+        preorder(node.getLeft(), tempList);
+        preorder(node.getRight(), tempList);
+    	}
 	}
 
 	/**
@@ -193,7 +211,9 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
 	public Iterator<T> iteratorPostOrder() {
 
 		// left as programming project
-		return null;
+		ArrayList<T> tempList = new ArrayList<T>();
+    	postorder(root, tempList);
+    	return tempList.iterator();
 
 	}
 
@@ -206,7 +226,11 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
 	private void postorder(BinaryTreeNode<T> node, ArrayList<T> tempList) {
 
 		// left as programming project
-
+		if (node != null) {
+        postorder(node.getLeft(), tempList);
+        postorder(node.getRight(), tempList);
+        tempList.add(node.getData());
+    	}
 	}
 
 	/**
@@ -222,7 +246,7 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
 
 		while (!Q.isEmpty()) {
 
-			BinaryTreeNode<T> v = Q.removeFirst();
+			BinaryTreeNode<T> v = Q.remove(0);
 			tempList.add(v.getData());
 
 			if (v.getLeft() != null)

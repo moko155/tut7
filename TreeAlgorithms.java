@@ -4,21 +4,39 @@ public class TreeAlgorithms {
 	public static int min(BinaryTreeNode<Integer> node) {
 
 		// Left as a programming project
-		return -1;
+		if (node == null)
+        	return Integer.MAX_VALUE;
+    
+    	int minLeft = min(node.getLeft());
+    	int minRight = min(node.getRight());
+    
+    	return Math.min(node.getData(), Math.min(minLeft, minRight));
 
 	}
 
 	public static int countLeafs(BinaryTreeNode<Integer> node) {
 
 		// Left as a programming project
-		return -1;
+		if (node == null)
+        	return 0;
+    
+    	if (node.getLeft() == null && node.getRight() == null)
+        	return 1;
+    
+    	return countLeafs(node.getLeft()) + countLeafs(node.getRight());
 
 	}
 
 	public static int height(BinaryTreeNode<Integer> node) {
 
 		// Left as a programming project
-		return -1;
+		if (node == null)
+        	return -1;
+    
+    	int leftHeight = height(node.getLeft());
+    	int rightHeight = height(node.getRight());
+    
+    	return 1 + Math.max(leftHeight, rightHeight);
 
 	}
 
